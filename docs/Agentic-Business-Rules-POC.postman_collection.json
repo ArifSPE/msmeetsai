@@ -1,0 +1,961 @@
+{
+	"info": {
+		"_postman_id": "agentic-poc-api-tests",
+		"name": "Agentic Business Rules POC - API Collection",
+		"description": "Comprehensive API testing collection for the Agentic Business Rules POC system. This collection tests all endpoints including scenario analysis, rule execution, chat interface, and system management.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "agentic-poc"
+	},
+	"item": [
+		{
+			"name": "System Health & Info",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has status field\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('status');",
+									"    pm.expect(jsonData.status).to.eql('healthy');",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Basic health check endpoint to verify the API is running and all components are initialized."
+					},
+					"response": []
+				},
+				{
+					"name": "System Information",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains system info\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('initialized');",
+									"    pm.expect(jsonData).to.have.property('total_rules');",
+									"    pm.expect(jsonData).to.have.property('domains');",
+									"});",
+									"",
+									"pm.test(\"System is initialized\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.initialized).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/system/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"system",
+								"info"
+							]
+						},
+						"description": "Get comprehensive system information including rule counts, domains, and initialization status."
+					},
+					"response": []
+				}
+			],
+			"description": "Basic system health and information endpoints to verify the system is operational."
+		},
+		{
+			"name": "Business Rules Management",
+			"item": [
+				{
+					"name": "Get All Rules",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains rules\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('rules');",
+									"    pm.expect(jsonData).to.have.property('total_count');",
+									"    pm.expect(jsonData).to.have.property('domains');",
+									"    pm.expect(jsonData).to.have.property('categories');",
+									"});",
+									"",
+									"pm.test(\"Rules array is not empty\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.rules).to.be.an('array');",
+									"    pm.expect(jsonData.rules.length).to.be.above(0);",
+									"});",
+									"",
+									"// Store first rule ID for later tests",
+									"pm.test(\"Store rule ID for later tests\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    if (jsonData.rules.length > 0) {",
+									"        pm.collectionVariables.set('sample_rule_id', jsonData.rules[0].id);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rules?limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rules"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						},
+						"description": "Retrieve all business rules with pagination support."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rules by Domain",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"All rules belong to finance domain\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    jsonData.rules.forEach(rule => {",
+									"        pm.expect(rule.domain).to.eql('finance');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rules?domain=finance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rules"
+							],
+							"query": [
+								{
+									"key": "domain",
+									"value": "finance"
+								}
+							]
+						},
+						"description": "Get rules filtered by a specific domain (finance, inventory, compliance, customer_service)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specific Rule by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 or 404\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 404]);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    pm.test(\"Response contains rule details\", function () {",
+									"        const jsonData = pm.response.json();",
+									"        pm.expect(jsonData).to.have.property('id');",
+									"        pm.expect(jsonData).to.have.property('name');",
+									"        pm.expect(jsonData).to.have.property('domain');",
+									"        pm.expect(jsonData).to.have.property('action');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rules/{{sample_rule_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rules",
+								"{{sample_rule_id}}"
+							]
+						},
+						"description": "Get details of a specific rule by its ID."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing and retrieving business rules information."
+		},
+		{
+			"name": "Scenario Analysis",
+			"item": [
+				{
+					"name": "Analyze Loan Application Scenario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains analysis results\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('scenario');",
+									"    pm.expect(jsonData).to.have.property('applicable_rules');",
+									"    pm.expect(jsonData).to.have.property('confidence');",
+									"    pm.expect(jsonData).to.have.property('reasoning');",
+									"    pm.expect(jsonData).to.have.property('execution_plan');",
+									"});",
+									"",
+									"pm.test(\"Scenario matches input\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.scenario).to.include('loan');",
+									"});",
+									"",
+									"pm.test(\"Response time is reasonable\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"Customer wants a $8000 loan with credit score 720 and annual income $60000\",\n  \"context\": {\n    \"loan_amount\": 8000,\n    \"credit_score\": 720,\n    \"annual_income\": 60000,\n    \"debt_to_income\": 0.25,\n    \"customer_type\": \"existing\"\n  },\n  \"domain_hint\": \"finance\",\n  \"category_hint\": \"loan_approval\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze"
+							]
+						},
+						"description": "Analyze a loan application scenario to determine applicable business rules."
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Inventory Scenario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains analysis results\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('applicable_rules');",
+									"    pm.expect(jsonData).to.have.property('confidence');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"Product XYZ has current stock of 50 units, minimum stock level is 100 units\",\n  \"context\": {\n    \"product_id\": \"XYZ-001\",\n    \"current_stock\": 50,\n    \"minimum_stock\": 100,\n    \"reorder_quantity\": 200,\n    \"supplier\": \"ACME Corp\"\n  },\n  \"domain_hint\": \"inventory\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze"
+							]
+						},
+						"description": "Analyze an inventory management scenario for stock reordering."
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Customer Service Scenario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Analysis completed successfully\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('decision_outcome');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"Customer complaint about billing error, high priority customer, issue affects payment processing\",\n  \"context\": {\n    \"customer_tier\": \"premium\",\n    \"issue_type\": \"billing\",\n    \"priority\": \"high\",\n    \"affects_payment\": true,\n    \"customer_id\": \"CUST-12345\"\n  },\n  \"domain_hint\": \"customer_service\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze"
+							]
+						},
+						"description": "Analyze a customer service scenario for support ticket routing."
+					},
+					"response": []
+				}
+			],
+			"description": "Test scenario analysis capabilities across different business domains."
+		},
+		{
+			"name": "Rule Execution",
+			"item": [
+				{
+					"name": "Execute Finance Rules",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Execution results returned\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('plan_id');",
+									"    pm.expect(jsonData).to.have.property('overall_status');",
+									"    pm.expect(jsonData).to.have.property('results');",
+									"});",
+									"",
+									"pm.test(\"Execution completed\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.overall_status).to.be.oneOf(['completed', 'partial', 'skipped']);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"Execute loan approval for qualified customer\",\n  \"rules\": [\n    {\n      \"id\": \"finance_loan_001\",\n      \"name\": \"Basic Credit Check\",\n      \"action\": \"approve_basic_review\",\n      \"parameters\": {\n        \"loan_amount\": 8000,\n        \"credit_score\": 720\n      }\n    }\n  ],\n  \"context\": {\n    \"customer_id\": \"CUST-789\",\n    \"loan_amount\": 8000,\n    \"credit_score\": 720,\n    \"application_id\": \"LOAN-2024-001\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"execute"
+							]
+						},
+						"description": "Execute specific business rules with provided context."
+					},
+					"response": []
+				}
+			],
+			"description": "Test rule execution functionality with various business scenarios."
+		},
+		{
+			"name": "End-to-End Workflows",
+			"item": [
+				{
+					"name": "Complete Loan Processing Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Complete workflow response\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('scenario');",
+									"    pm.expect(jsonData).to.have.property('analysis');",
+									"    pm.expect(jsonData).to.have.property('execution');",
+									"});",
+									"",
+									"pm.test(\"Analysis completed\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.analysis).to.have.property('confidence');",
+									"    pm.expect(jsonData.analysis).to.have.property('decision_outcome');",
+									"});",
+									"",
+									"pm.test(\"Execution attempted\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.execution).to.have.property('overall_status');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"New customer John Smith applies for a $12000 personal loan. He has a credit score of 750, annual income of $75000, and debt-to-income ratio of 0.2. This is his first loan with us.\",\n  \"context\": {\n    \"customer_name\": \"John Smith\",\n    \"customer_type\": \"new\",\n    \"loan_type\": \"personal\",\n    \"loan_amount\": 12000,\n    \"credit_score\": 750,\n    \"annual_income\": 75000,\n    \"debt_to_income\": 0.2,\n    \"employment_status\": \"employed\",\n    \"employment_years\": 5,\n    \"application_date\": \"2025-09-25\"\n  },\n  \"domain_hint\": \"finance\",\n  \"category_hint\": \"loan_approval\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze-and-execute",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze-and-execute"
+							]
+						},
+						"description": "Complete end-to-end workflow: analyze scenario and execute applicable rules."
+					},
+					"response": []
+				},
+				{
+					"name": "Inventory Reorder Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Workflow contains both analysis and execution\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('analysis');",
+									"    pm.expect(jsonData).to.have.property('execution');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"Warehouse system detected that Product ABC-123 has dropped below minimum stock levels. Current stock: 25 units, minimum required: 100 units, reorder point: 80 units.\",\n  \"context\": {\n    \"product_id\": \"ABC-123\",\n    \"product_name\": \"Widget Pro Max\",\n    \"current_stock\": 25,\n    \"minimum_stock\": 100,\n    \"reorder_point\": 80,\n    \"reorder_quantity\": 500,\n    \"supplier_id\": \"SUP-001\",\n    \"supplier_name\": \"Global Widgets Inc\",\n    \"lead_time_days\": 7,\n    \"unit_cost\": 15.50,\n    \"warehouse_location\": \"WH-MAIN\"\n  },\n  \"domain_hint\": \"inventory\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze-and-execute",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze-and-execute"
+							]
+						},
+						"description": "Complete inventory management workflow for automatic reordering."
+					},
+					"response": []
+				},
+				{
+					"name": "Compliance Check Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Compliance workflow completed\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.scenario).to.include('compliance');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"Data processing request from EU customer requires GDPR compliance check. Customer has not provided explicit consent for data processing beyond service delivery.\",\n  \"context\": {\n    \"customer_location\": \"EU\",\n    \"data_type\": \"personal\",\n    \"processing_purpose\": \"service_delivery\",\n    \"consent_status\": \"service_only\",\n    \"data_retention_days\": 90,\n    \"regulation\": \"GDPR\",\n    \"customer_id\": \"EU-CUST-456\",\n    \"request_type\": \"data_processing\"\n  },\n  \"domain_hint\": \"compliance\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze-and-execute",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze-and-execute"
+							]
+						},
+						"description": "Compliance workflow for data processing and GDPR checks."
+					},
+					"response": []
+				}
+			],
+			"description": "End-to-end workflow testing that combines analysis and execution in a single request."
+		},
+		{
+			"name": "Chat Interface",
+			"item": [
+				{
+					"name": "Ask About Loan Requirements",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Chat response contains message\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('message');",
+									"    pm.expect(jsonData.message).to.be.a('string');",
+									"    pm.expect(jsonData.message.length).to.be.above(10);",
+									"});",
+									"",
+									"pm.test(\"Response suggests actions\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('suggested_actions');",
+									"    pm.expect(jsonData.suggested_actions).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"What are the requirements for loan approval? What credit score do I need?\",\n  \"context\": {\n    \"user_role\": \"customer\",\n    \"inquiry_type\": \"loan_requirements\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Chat with the business rules agent about loan requirements."
+					},
+					"response": []
+				},
+				{
+					"name": "Ask About Inventory Rules",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response mentions inventory\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message.toLowerCase()).to.include('inventory');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"How does the automatic reordering system work? When does it trigger reorders?\",\n  \"conversation_history\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Tell me about inventory management\"\n    },\n    {\n      \"role\": \"assistant\",\n      \"content\": \"I can help you understand our inventory management rules and automated systems.\"\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Conversational query about inventory management rules with context history."
+					},
+					"response": []
+				},
+				{
+					"name": "General Business Rules Question",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Chat provides helpful response\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.be.a('string');",
+									"    pm.expect(jsonData.message.length).to.be.above(50);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"Can you explain how the business rules system works? What domains do you cover?\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "General question about the business rules system capabilities."
+					},
+					"response": []
+				}
+			],
+			"description": "Test the conversational chat interface for business rules queries."
+		},
+		{
+			"name": "System Management",
+			"item": [
+				{
+					"name": "Get Execution History",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/history?limit=10&offset=0",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"history"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						},
+						"description": "Retrieve execution history to see previous rule executions."
+					},
+					"response": []
+				}
+			],
+			"description": "System management and monitoring endpoints."
+		},
+		{
+			"name": "Error Handling Tests",
+			"item": [
+				{
+					"name": "Invalid Scenario Analysis",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422 (validation error) or 200 (handled gracefully)\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 422]);",
+									"});",
+									"",
+									"if (pm.response.code === 200) {",
+									"    pm.test(\"System handles empty scenario gracefully\", function () {",
+									"        const jsonData = pm.response.json();",
+									"        pm.expect(jsonData).to.have.property('decision_outcome');",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenario\": \"\",\n  \"context\": {}\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"analyze"
+							]
+						},
+						"description": "Test how the system handles invalid or empty scenarios."
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Rule ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/rules/nonexistent-rule-id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"rules",
+								"nonexistent-rule-id"
+							]
+						},
+						"description": "Test response when requesting a non-existent rule ID."
+					},
+					"response": []
+				}
+			],
+			"description": "Test error handling and edge cases to ensure robust system behavior."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Set timestamp for unique IDs",
+					"pm.collectionVariables.set('timestamp', Date.now());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test to check for common response properties",
+					"pm.test('Response time is acceptable', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(60000); // 1 minute max",
+					"});",
+					"",
+					"// Log response for debugging if needed",
+					"if (pm.response.code >= 400) {",
+					"    console.log('Error Response:', pm.response.text());",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"description": "Base URL for the Agentic Business Rules API",
+			"type": "string"
+		},
+		{
+			"key": "sample_rule_id",
+			"value": "",
+			"description": "Sample rule ID populated from the rules list",
+			"type": "string"
+		},
+		{
+			"key": "timestamp",
+			"value": "",
+			"description": "Current timestamp for unique identifiers",
+			"type": "string"
+		}
+	]
+}

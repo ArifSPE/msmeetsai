@@ -1,0 +1,56 @@
+---
+domain: customer_service
+category: support_routing
+rules:
+  - id: "SUPP_001"
+    name: "VIP Customer Priority"
+    description: "Route VIP customers to senior support agents"
+    condition: "customer_tier == 'VIP' OR account_value > 100000"
+    action: "route_to_senior_agent"
+    priority: 3
+    parameters:
+      vip_tiers: ["VIP", "Premium", "Enterprise"]
+      high_value_threshold: 100000
+    metadata:
+      created_by: "customer_success"
+      last_updated: "2024-01-20"
+
+  - id: "SUPP_002"
+    name: "Technical Issue Escalation"
+    description: "Escalate complex technical issues"
+    condition: "issue_category == 'technical' AND (complexity_score >= 8 OR previous_escalations > 0)"
+    action: "escalate_to_technical_team"
+    priority: 2
+    parameters:
+      complexity_threshold: 8
+      technical_categories: ["technical", "integration", "api"]
+    metadata:
+      created_by: "support_team"
+      last_updated: "2024-01-18"
+
+  - id: "SUPP_003"
+    name: "After Hours Support"
+    description: "Handle support requests outside business hours"
+    condition: "current_time < business_start_time OR current_time > business_end_time"
+    action: "route_to_global_team"
+    priority: 1
+    parameters:
+      business_start_hour: 9
+      business_end_hour: 17
+      timezone: "UTC"
+    metadata:
+      created_by: "operations_team"
+      last_updated: "2024-01-22"
+
+  - id: "SUPP_004"
+    name: "Billing Dispute Handling"
+    description: "Route billing disputes to specialized team"
+    condition: "issue_category == 'billing' AND dispute_amount > 1000"
+    action: "route_to_billing_specialist"
+    priority: 2
+    parameters:
+      high_value_dispute_threshold: 1000
+      billing_categories: ["billing", "payment", "refund"]
+    metadata:
+      created_by: "finance_team"
+      last_updated: "2024-01-16"

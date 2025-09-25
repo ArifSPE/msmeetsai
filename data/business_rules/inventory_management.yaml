@@ -1,0 +1,67 @@
+---
+domain: inventory
+category: stock_management
+rules:
+  - id: "INV_001"
+    name: "Low Stock Alert"
+    description: "Generate alert when inventory falls below minimum threshold"
+    condition: "current_stock <= minimum_stock_level"
+    action: "generate_low_stock_alert"
+    priority: 1
+    parameters:
+      alert_threshold_multiplier: 1.0
+    metadata:
+      created_by: "inventory_team"
+      last_updated: "2024-01-15"
+
+  - id: "INV_002"
+    name: "Emergency Reorder"
+    description: "Automatically reorder when stock is critically low"
+    condition: "current_stock <= (minimum_stock_level * 0.5) AND product_category IN ['essential', 'high_demand']"
+    action: "emergency_reorder"
+    priority: 3
+    parameters:
+      emergency_threshold_multiplier: 0.5
+      emergency_categories: ["essential", "high_demand"]
+    metadata:
+      created_by: "supply_chain"
+      last_updated: "2024-02-01"
+
+  - id: "INV_003"
+    name: "Overstock Prevention"
+    description: "Prevent ordering when stock levels are too high"
+    condition: "current_stock >= (maximum_stock_level * 0.9)"
+    action: "block_reorder"
+    priority: 2
+    parameters:
+      overstock_threshold_multiplier: 0.9
+    metadata:
+      created_by: "inventory_team"
+      last_updated: "2024-01-20"
+
+  - id: "INV_004"
+    name: "Seasonal Adjustment"
+    description: "Adjust reorder quantities based on seasonal demand"
+    condition: "season IN ['peak', 'holiday'] AND product_category == 'seasonal'"
+    action: "increase_reorder_quantity"
+    priority: 2
+    parameters:
+      seasonal_multiplier: 1.5
+      peak_seasons: ["peak", "holiday"]
+      seasonal_categories: ["seasonal"]
+    metadata:
+      created_by: "demand_planning"
+      last_updated: "2024-01-25"
+
+  - id: "INV_005"
+    name: "Expiry Date Check"
+    description: "Handle products approaching expiry date"
+    condition: "days_to_expiry <= 30 AND product_type == 'perishable'"
+    action: "mark_for_clearance"
+    priority: 3
+    parameters:
+      expiry_warning_days: 30
+      applicable_types: ["perishable"]
+    metadata:
+      created_by: "quality_team"
+      last_updated: "2024-01-18"

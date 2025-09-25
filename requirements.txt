@@ -1,0 +1,30 @@
+# Core dependencies
+llama-index==0.10.57
+llama-index-llms-ollama==0.1.4
+llama-index-embeddings-ollama==0.1.2
+qdrant-client==1.9.1
+llama-index-vector-stores-qdrant==0.2.8
+
+# API and web framework
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.11.9
+pydantic-settings==2.11.0
+
+# Data processing
+pandas==2.1.4
+numpy==1.26.2
+pyyaml==6.0.1
+
+# Logging and utilities
+loguru==0.7.2
+python-dotenv==1.0.0
+rich==13.7.0
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Optional: For local model management
+transformers==4.36.2
+torch==2.1.2

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2025-09-25T00:00:00.000Z" agent="5.0" etag="XYZ123" version="24.7.8" type="device">
+  <diagram name="Agentic Business Rules Architecture" id="agentic-poc">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Agentic Business Rules POC Architecture" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="10" width="470" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Client Layer -->
+        <mxCell id="client-layer" value="Client Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="70" width="1070" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- API Clients -->
+        <mxCell id="postman" value="Postman" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="curl" value="cURL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="200" y="140" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="web-app" value="Web Application" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="320" y="140" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="demo-script" value="Demo Scripts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="460" y="140" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- FastAPI Gateway -->
+        <mxCell id="fastapi" value="FastAPI Gateway&#xa;Port: 8000&#xa;&#xa;• /analyze&#xa;• /execute&#xa;• /analyze-and-execute&#xa;• /chat&#xa;• /rules&#xa;• /health" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="200" y="220" width="200" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- AgenticSystemService -->
+        <mxCell id="agentic-service" value="AgenticSystemService&#xa;&#xa;• System Orchestration&#xa;• Component Integration&#xa;• Async Processing&#xa;• Error Handling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="450" y="220" width="180" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Core Agent Components -->
+        <mxCell id="agent-layer" value="Agentic Core" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="380" width="1070" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Business Rule Agent -->
+        <mxCell id="business-agent" value="BusinessRuleAgent&#xa;&#xa;• Scenario Analysis&#xa;• Rule Discovery&#xa;• Decision Making&#xa;• ReAct Pattern&#xa;&#xa;States:&#xa;• ANALYZING&#xa;• REASONING&#xa;• DECIDING&#xa;• EXPLAINING" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- LLM Service -->
+        <mxCell id="llm-service" value="LocalLLMService&#xa;&#xa;• Ollama Integration&#xa;• Llama3:latest&#xa;• Scenario Analysis&#xa;• Rule Reasoning&#xa;• Explanation Generation&#xa;&#xa;Methods:&#xa;• analyze_scenario()&#xa;• reason_about_rules()&#xa;• generate_explanation()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="260" y="440" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- RAG Service -->
+        <mxCell id="rag-service" value="BusinessRulesRAG&#xa;&#xa;• Rule Indexing&#xa;• Semantic Search&#xa;• Vector Embeddings&#xa;• Query Enhancement&#xa;• Domain Filtering&#xa;&#xa;Components:&#xa;• BusinessRulesManager&#xa;• EmbeddingsService&#xa;• QdrantRAG" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="440" y="440" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Execution Engine -->
+        <mxCell id="execution-engine" value="ExecutionEngine&#xa;&#xa;• Rule Execution&#xa;• Action Processing&#xa;• Result Tracking&#xa;• Performance Monitoring&#xa;&#xa;Actions (20+):&#xa;• Finance: approve_loan&#xa;• Inventory: reorder_product&#xa;• Compliance: log_check&#xa;• Customer: route_ticket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="620" y="440" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Performance Monitor -->
+        <mxCell id="performance-monitor" value="PerformanceMonitor&#xa;&#xa;• Metrics Collection&#xa;• Operation Timing&#xa;• Success/Failure Tracking&#xa;• Export Capabilities&#xa;&#xa;Features:&#xa;• @monitor_performance&#xa;• Context Manager&#xa;• JSON Export&#xa;• Summary Reports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="800" y="440" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Layer -->
+        <mxCell id="data-layer" value="Data &amp; Storage Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#666666;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="620" width="1070" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Qdrant Vector DB -->
+        <mxCell id="qdrant" value="Qdrant Vector Database&#xa;Port: 6333&#xa;&#xa;• business_rules collection&#xa;• Vector embeddings&#xa;• Similarity search&#xa;• Metadata filtering&#xa;• Cosine similarity&#xa;&#xa;Data:&#xa;• Rule embeddings (384d)&#xa;• Rule metadata&#xa;• Domain categories" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="80" y="680" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Ollama LLM -->
+        <mxCell id="ollama" value="Ollama Local LLM&#xa;Port: 11434&#xa;&#xa;Models:&#xa;• llama3:latest (4.7GB)&#xa;• nomic-embed-text (274MB)&#xa;&#xa;Features:&#xa;• Local inference&#xa;• No API costs&#xa;• Privacy preserved&#xa;• Offline capable&#xa;&#xa;GPU: Optional CUDA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="260" y="680" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Business Rules Files -->
+        <mxCell id="business-rules" value="Business Rules (YAML)&#xa;&#xa;Files:&#xa;• finance_loans.yaml&#xa;• inventory_management.yaml&#xa;• compliance_rules.yaml&#xa;• customer_service.yaml&#xa;&#xa;Total: 18 rules across&#xa;4 business domains&#xa;&#xa;Structure:&#xa;• Conditions&#xa;• Actions&#xa;• Priorities&#xa;• Metadata" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="440" y="680" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Configuration -->
+        <mxCell id="config" value="Configuration&#xa;&#xa;• settings.py (Pydantic v2)&#xa;• .env environment&#xa;• Dynamic paths&#xa;• Service endpoints&#xa;• Model parameters&#xa;&#xa;Key Settings:&#xa;• QDRANT_HOST&#xa;• OLLAMA_BASE_URL&#xa;• OLLAMA_MODEL&#xa;• API_PORT&#xa;• LOG_LEVEL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="620" y="680" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Logs & Monitoring -->
+        <mxCell id="logs" value="Logs &amp; Monitoring&#xa;&#xa;• agentic_poc.log&#xa;• Performance metrics&#xa;• Error tracking&#xa;• Request/response logs&#xa;• System health&#xa;&#xa;Tools:&#xa;• Python logging&#xa;• Rich formatting&#xa;• JSON export&#xa;• Real-time monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="800" y="680" width="150" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow Arrows -->
+        <!-- Client to FastAPI -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="postman" target="fastapi">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="190" as="sourcePoint" />
+            <mxPoint x="180" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="curl" target="fastapi">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="250" y="190" as="sourcePoint" />
+            <mxPoint x="300" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="web-app" target="fastapi">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="190" as="sourcePoint" />
+            <mxPoint x="350" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- FastAPI to AgenticService -->
+        <mxCell id="arrow4" value="HTTP Requests" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="fastapi" target="agentic-service">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="280" as="sourcePoint" />
+            <mxPoint x="440" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- AgenticService to Agents -->
+        <mxCell id="arrow5" value="Orchestration" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="agentic-service" target="business-agent">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="350" as="sourcePoint" />
+            <mxPoint x="200" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow6" value="LLM Calls" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="business-agent" target="llm-service">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="510" as="sourcePoint" />
+            <mxPoint x="260" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow7" value="RAG Queries" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="business-agent" target="rag-service">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="510" as="sourcePoint" />
+            <mxPoint x="440" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow8" value="Rule Execution" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="agentic-service" target="execution-engine">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="350" as="sourcePoint" />
+            <mxPoint x="695" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Services to Data Layer -->
+        <mxCell id="arrow9" value="Vector Queries" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="rag-service" target="qdrant">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="440" y="590" as="sourcePoint" />
+            <mxPoint x="200" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow10" value="LLM Inference" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="llm-service" target="ollama">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="335" y="590" as="sourcePoint" />
+            <mxPoint x="335" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow11" value="Rule Loading" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="rag-service" target="business-rules">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="515" y="590" as="sourcePoint" />
+            <mxPoint x="515" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Performance Monitoring -->
+        <mxCell id="arrow12" value="Metrics Collection" style="endArrow=classic;html=1;rounded=0;dashed=1;" edge="1" parent="1" source="performance-monitor" target="logs">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="875" y="590" as="sourcePoint" />
+            <mxPoint x="875" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Legend:&#xa;&#xa;🟦 Client Applications&#xa;🟥 API Gateway&#xa;🟨 System Service&#xa;🟩 Agentic Components&#xa;🟪 Data &amp; Storage&#xa;--- Performance Monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="980" y="140" width="160" height="120" as="geometry" />
+        </mxCell>
+        
+        <!-- Agentic Flow Description -->
+        <mxCell id="flow-desc" value="Agentic Workflow:&#xa;1. Client sends business scenario&#xa;2. FastAPI routes to AgenticService&#xa;3. BusinessRuleAgent analyzes scenario&#xa;4. RAG searches relevant rules&#xa;5. LLM reasons about applicability&#xa;6. ExecutionEngine performs actions&#xa;7. Results returned to client&#xa;&#xa;Key Features:&#xa;• ReAct pattern (Reason-Act-Observe)&#xa;• Local LLM (privacy preserved)&#xa;• Vector semantic search&#xa;• Multi-domain rule coverage&#xa;• Performance monitoring&#xa;• Async processing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=top;align=left;" vertex="1" parent="1">
+          <mxGeometry x="980" y="280" width="160" height="200" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

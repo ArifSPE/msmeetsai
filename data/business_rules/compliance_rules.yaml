@@ -1,0 +1,72 @@
+---
+domain: compliance
+category: data_protection
+rules:
+  - id: "GDPR_001"
+    name: "Data Retention Limit"
+    description: "Automatically delete personal data after retention period"
+    condition: "data_age_days > retention_period_days AND data_type == 'personal'"
+    action: "schedule_data_deletion"
+    priority: 3
+    parameters:
+      default_retention_days: 2555  # 7 years
+      personal_data_types: ["personal", "sensitive"]
+    metadata:
+      created_by: "compliance_team"
+      last_updated: "2024-01-10"
+      regulation: "GDPR"
+
+  - id: "GDPR_002"
+    name: "Consent Expiry Check"
+    description: "Check if user consent has expired"
+    condition: "consent_date + consent_validity_days < current_date"
+    action: "request_consent_renewal"
+    priority: 2
+    parameters:
+      consent_validity_days: 365
+    metadata:
+      created_by: "privacy_team"
+      last_updated: "2024-01-12"
+      regulation: "GDPR"
+
+  - id: "GDPR_003"
+    name: "Right to be Forgotten"
+    description: "Process data deletion requests"
+    condition: "deletion_request_received == True AND request_verified == True"
+    action: "execute_data_deletion"
+    priority: 3
+    parameters:
+      verification_required: True
+      deletion_grace_period_days: 30
+    metadata:
+      created_by: "privacy_team"
+      last_updated: "2024-01-15"
+      regulation: "GDPR"
+
+  - id: "SOX_001"
+    name: "Financial Data Access Control"
+    description: "Restrict access to financial data based on role"
+    condition: "data_classification == 'financial' AND user_role NOT IN ['finance', 'executive', 'auditor']"
+    action: "deny_access"
+    priority: 3
+    parameters:
+      authorized_roles: ["finance", "executive", "auditor"]
+      financial_data_classifications: ["financial", "accounting", "revenue"]
+    metadata:
+      created_by: "compliance_team"
+      last_updated: "2024-01-08"
+      regulation: "SOX"
+
+  - id: "PCI_001"
+    name: "Payment Data Encryption"
+    description: "Ensure payment data is encrypted"
+    condition: "data_type == 'payment' AND encryption_status == False"
+    action: "enforce_encryption"
+    priority: 3
+    parameters:
+      payment_data_types: ["credit_card", "bank_account", "payment"]
+      required_encryption_standard: "AES256"
+    metadata:
+      created_by: "security_team"
+      last_updated: "2024-01-05"
+      regulation: "PCI-DSS"

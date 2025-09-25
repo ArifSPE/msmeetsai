@@ -1,0 +1,775 @@
+{
+	"info": {
+		"name": "Agentic POC - Complete Business Rules Collection",
+		"description": "Complete collection of all 18 business rules with natural language scenarios for testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_postman_id": "agentic-poc-complete-rules",
+		"version": "2.0.0"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "System Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": ["{{base_url}}"],
+					"path": ["health"]
+				}
+			}
+		},
+		{
+			"name": "Get All Rules",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/rules",
+					"host": ["{{base_url}}"],
+					"path": ["rules"]
+				}
+			}
+		},
+		{
+			"name": "Finance Rules",
+			"item": [
+				{
+					"name": "LOAN_001 - Basic Credit Score Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A customer with a credit score of 720 is applying for a loan of $50,000\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\",\n        \"customer_id\": \"CUST_12345\",\n        \"application_id\": \"APP_98765\"\n    },\n    \"rule_ids\": [\"LOAN_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "LOAN_002 - High Risk Loan Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A customer with a credit score of 650 and annual income of $75,000 has a debt-to-income ratio of 0.35\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\",\n        \"customer_id\": \"CUST_12346\",\n        \"application_id\": \"APP_98766\"\n    },\n    \"rule_ids\": [\"LOAN_002\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "LOAN_003 - Instant Approval Criteria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A customer with a credit score of 800 is applying for a $25,000 loan with excellent payment history\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\",\n        \"customer_id\": \"CUST_12347\",\n        \"application_id\": \"APP_98767\"\n    },\n    \"rule_ids\": [\"LOAN_003\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "LOAN_004 - Collateral Requirement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A customer is applying for a $150,000 loan against a property worth $200,000 with a down payment of $40,000\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\",\n        \"customer_id\": \"CUST_12348\",\n        \"application_id\": \"APP_98768\"\n    },\n    \"rule_ids\": [\"LOAN_004\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Compliance Rules",
+			"item": [
+				{
+					"name": "GDPR_001 - Data Retention Limit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"I have personal data that is 800 days old and the retention period is 730 days\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\",\n        \"regulation\": \"GDPR\",\n        \"user_location\": \"EU\"\n    },\n    \"rule_ids\": [\"GDPR_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "GDPR_002 - Consent Expiry Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"User consent was given on 2023-01-01 with a validity period of 365 days and today is 2024-09-25\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\",\n        \"regulation\": \"GDPR\",\n        \"user_location\": \"EU\"\n    },\n    \"rule_ids\": [\"GDPR_002\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "GDPR_003 - Right to be Forgotten",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A user has submitted a verified data deletion request and wants their personal information completely removed\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\",\n        \"regulation\": \"GDPR\",\n        \"user_location\": \"EU\"\n    },\n    \"rule_ids\": [\"GDPR_003\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "SOX_001 - Financial Data Access Control",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"An employee is trying to access financial data classification records without proper authorization\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\",\n        \"regulation\": \"SOX\",\n        \"user_role\": \"employee\"\n    },\n    \"rule_ids\": [\"SOX_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "PCI_001 - Payment Data Encryption",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Payment data is stored without encryption and needs to be secured according to PCI compliance\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\",\n        \"regulation\": \"PCI_DSS\",\n        \"data_classification\": \"payment\"\n    },\n    \"rule_ids\": [\"PCI_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Inventory Rules",
+			"item": [
+				{
+					"name": "INV_001 - Low Stock Alert",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Product PROD_12345 has current stock of 25 units but minimum threshold is 50 units\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\",\n        \"warehouse_id\": \"WH_001\",\n        \"location\": \"NYC\"\n    },\n    \"rule_ids\": [\"INV_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "INV_002 - Emergency Reorder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Critical product has stock level of 5 units remaining and needs emergency reorder to avoid stockout\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\",\n        \"warehouse_id\": \"WH_001\",\n        \"urgency\": \"critical\"\n    },\n    \"rule_ids\": [\"INV_002\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "INV_003 - Overstock Prevention",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Warehouse has excess inventory that exceeds storage capacity and needs clearance action\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\",\n        \"warehouse_id\": \"WH_001\",\n        \"capacity_utilization\": 0.95\n    },\n    \"rule_ids\": [\"INV_003\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "INV_004 - Seasonal Adjustment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Need to adjust inventory levels for seasonal demand changes during holiday season\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\",\n        \"season\": \"holiday\",\n        \"expected_demand_increase\": 1.5\n    },\n    \"rule_ids\": [\"INV_004\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "INV_005 - Expiry Date Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Products in inventory are approaching their expiry dates within 30 days and need immediate action\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\",\n        \"expiry_warning_days\": 30,\n        \"product_type\": \"perishable\"\n    },\n    \"rule_ids\": [\"INV_005\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Customer Service Rules",
+			"item": [
+				{
+					"name": "SUPP_001 - VIP Customer Priority",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"VIP customer has submitted a support request and needs priority handling with dedicated agent\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"customer_service\",\n        \"category\": \"support_routing\",\n        \"customer_id\": \"CUST_VIP_001\",\n        \"customer_tier\": \"VIP\",\n        \"channel\": \"phone\"\n    },\n    \"rule_ids\": [\"SUPP_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "SUPP_002 - Technical Issue Escalation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Complex technical issue requires escalation to specialized technical team for resolution\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"customer_service\",\n        \"category\": \"support_routing\",\n        \"customer_id\": \"CUST_12349\",\n        \"issue_type\": \"technical\",\n        \"complexity\": \"high\"\n    },\n    \"rule_ids\": [\"SUPP_002\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "SUPP_003 - After Hours Support",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A high severity issue has response time of 48 hours but SLA requires 24 hours during after hours\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"customer_service\",\n        \"category\": \"support_routing\",\n        \"customer_id\": \"CUST_12350\",\n        \"issue_severity\": \"high\",\n        \"business_hours\": false\n    },\n    \"rule_ids\": [\"SUPP_003\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "SUPP_004 - Billing Dispute Handling",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Customer has a billing dispute over incorrect charges that needs specialized financial team review\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"customer_service\",\n        \"category\": \"support_routing\",\n        \"customer_id\": \"CUST_12351\",\n        \"issue_type\": \"billing_dispute\",\n        \"dispute_amount\": 245.99\n    },\n    \"rule_ids\": [\"SUPP_004\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Analysis Endpoints",
+			"item": [
+				{
+					"name": "Analyze Finance Scenario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Customer with credit score 680 applying for $75,000 loan with annual income $60,000\",\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": ["{{base_url}}"],
+							"path": ["analyze"]
+						}
+					}
+				},
+				{
+					"name": "Analyze Compliance Scenario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Personal data stored for 900 days exceeds retention policy\",\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": ["{{base_url}}"],
+							"path": ["analyze"]
+						}
+					}
+				},
+				{
+					"name": "Analyze Inventory Scenario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Multiple products showing low stock levels and need replenishment\",\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": ["{{base_url}}"],
+							"path": ["analyze"]
+						}
+					}
+				},
+				{
+					"name": "Analyze Customer Service Scenario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Premium customer with urgent technical issue needs immediate attention\",\n    \"context\": {\n        \"domain\": \"customer_service\",\n        \"category\": \"support_routing\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": ["{{base_url}}"],
+							"path": ["analyze"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Multi-Rule Execution",
+			"item": [
+				{
+					"name": "Execute Multiple Finance Rules",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Customer with credit score 680 applying for loan amount 75000 with annual income 60000\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\"\n    },\n    \"rule_ids\": [\"LOAN_001\", \"LOAN_002\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "Execute Multiple Compliance Rules",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Personal data is 800 days old with consent given 400 days ago\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\"\n    },\n    \"rule_ids\": [\"GDPR_001\", \"GDPR_002\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "Execute Multiple Inventory Rules",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Product has current stock 25 units with minimum threshold 50 and products expiring in 20 days\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\"\n    },\n    \"rule_ids\": [\"INV_001\", \"INV_005\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "Auto-Discovery - Finance Loan Scenario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"A customer with a credit score of 720 is applying for a loan of $50,000\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"finance\",\n        \"category\": \"loan_approval\",\n        \"customer_id\": \"CUST_12345\",\n        \"application_id\": \"APP_98765\"\n    },\n    \"rule_ids\": [\"LOAN_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "Auto-Discovery - Compliance Data Cleanup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"I have personal data that is 800 days old and the retention period is 730 days\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"compliance\",\n        \"category\": \"data_protection\",\n        \"regulation\": \"GDPR\",\n        \"user_location\": \"EU\"\n    },\n    \"rule_ids\": [\"GDPR_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "Auto-Discovery - Inventory Low Stock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Product PROD_12345 has current stock of 25 units but minimum threshold is 50 units\",\n    \"parameters\": {},\n    \"context\": {\n        \"domain\": \"inventory\",\n        \"category\": \"stock_management\",\n        \"warehouse_id\": \"WH_001\",\n        \"location\": \"NYC\"\n    },\n    \"rule_ids\": [\"INV_001\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Auto-Discovery Tests (Backend Issues)",
+			"item": [
+				{
+					"name": "BROKEN - Finance Auto-Discovery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Customer applying for loan with credit score 650\",\n    \"context\": {\n        \"domain\": \"finance\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "BROKEN - Compliance Auto-Discovery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Personal data stored for 800 days with expired consent needs cleanup\",\n    \"context\": {\n        \"domain\": \"compliance\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/execute",
+							"host": ["{{base_url}}"],
+							"path": ["execute"]
+						}
+					}
+				},
+				{
+					"name": "ANALYZE - Shows Rules Found But Not Executed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scenario\": \"Personal data stored for 800 days with expired consent needs cleanup\",\n    \"context\": {\n        \"domain\": \"compliance\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/analyze",
+							"host": ["{{base_url}}"],
+							"path": ["analyze"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Chat Interface",
+			"item": [
+				{
+					"name": "Chat - Ask about Rules",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"What business rules do you have for loan approval?\",\n    \"context\": {\n        \"domain\": \"finance\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": ["{{base_url}}"],
+							"path": ["chat"]
+						}
+					}
+				},
+				{
+					"name": "Chat - Compliance Question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"How long can I keep customer personal data?\",\n    \"context\": {\n        \"domain\": \"compliance\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": ["{{base_url}}"],
+							"path": ["chat"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
