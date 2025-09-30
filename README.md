@@ -49,7 +49,7 @@ pip install -r requirements.txt
 curl -fsSL https://ollama.ai/install.sh | sh
 
 # Pull a Llama model
-ollama pull llama2:7b
+ollama pull llama3.2:1b
 ```
 
 3. Start Qdrant vector database:
